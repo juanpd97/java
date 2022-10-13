@@ -2,7 +2,7 @@
 package liconex_g21;
 
 
-public class Vehiculo {
+public abstract class Vehiculo {
     
     //------ atributos -----
     private String patente;

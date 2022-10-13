@@ -43,6 +43,8 @@ public class Examen {
         this.fecha = fecha;
     }
     //----- constructor -----
+        public Examen(){
+        }
     
         public Examen(LocalDate fecha, Persona p, CircuitoDePrueba c, Vehiculo v) {
         this.fecha = fecha;

@@ -44,6 +44,8 @@ public class Persona {
         this.apellido = apellido;
     }
     // -----contructor-----
+    public Persona(){
+    }
     
     public Persona(int dni, LocalDate fecha_nacimiento, String nombre, String apellido) {
         this.dni = dni;
