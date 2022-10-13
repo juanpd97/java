@@ -21,8 +21,10 @@ public class LICONEX_G21 {
             examenMoto();
             break;
         case 2:
+            examenAuto();
             break;
         case 3:
+            menuConsultas();
             break;
         case 9:
             break;
@@ -32,7 +34,7 @@ public class LICONEX_G21 {
             
             
             //prueba
-            
+            Examen ex;
             //-----------------------------
     }
        
@@ -48,8 +50,19 @@ public class LICONEX_G21 {
         System.out.print("        Ingrese una: ");
 
     }
-
     
+    public static void menuConsultas(){
+        System.out.println("        LICENCIAS DE CONDUCIR");
+        System.out.println("        Menu Principal");
+        System.out.println("    ===============================");
+        System.out.println("        1.- Examen por DNI");
+        System.out.println("        2.- Exámenes de moto por FECHA");
+        System.out.println("        3.- Exámenes de auto por FECHA");
+        System.out.println("        4.- <Co 4.- <Consulta Opcional>");
+        System.out.println("        9.- Volver al menú anterior");
+        System.out.print("        Ingrese una: ");
+    }
+
     public static Persona nuevaPersona(){
         Scanner entrada = new Scanner(System.in);
         
@@ -122,6 +135,33 @@ public class LICONEX_G21 {
         return moto;
     }
     
+    public static Auto nuevoAuto(){
+        
+        Scanner entrada = new Scanner(System.in);
+        
+         Auto auto;
+        
+        String patente;
+        String marca;
+        int cilindrada;
+        int cantPuertas;
+        
+        System.out.println("ingresar datos del auto:");
+        System.out.print("  -Patente: ");
+        patente = entrada.next();
+        System.out.print("  -Marca: ");
+        marca = entrada.next();
+        System.out.print("  -Cilindrada: ");
+        cilindrada = entrada.nextInt();
+        
+        System.out.print("  -Cantidad de puertas: ");
+        cantPuertas = entrada.nextInt();
+        
+        auto = new Auto(cantPuertas ,  patente,  marca,  cilindrada);
+        
+        return auto;
+    }
+    
     public static CircuitoDePrueba nuevoCircuito(){
         
         Scanner entrada = new Scanner(System.in);
@@ -177,6 +217,8 @@ public class LICONEX_G21 {
         int mes;
         int dia;
         
+        System.out.println("- ingresar fecha de examen:");
+        
         System.out.print("    -año:");
         anio = entrada.nextInt();
         System.out.print("    -mes:");
@@ -191,9 +233,7 @@ public class LICONEX_G21 {
         
         return examenMoto;
     }
-
-}
-
+    
     public static ExamenAuto examenAuto(){
     /*Se solicitará el ingreso de los datos de la persona examinada, los datos del vehículo que utilizó y del
     circuito que realizó en la prueba. Para simplificar esta etapa inicial de LICONEX, al registrar un nuevo
@@ -201,5 +241,51 @@ public class LICONEX_G21 {
     específicos para ese examen.examen de auto, se considera que tanto la persona, como el auto y el circuito, son nuevos y
     específicos para ese examen.
     */
-    
+            Scanner entrada = new Scanner(System.in);
+        
+        ExamenAuto examenAuto;
+        
+        //----- datos de una nueva persona -----
+        Persona per;
+        per = nuevaPersona();
+        //---------------------------------
+        
+        
+        //----- datos del vehículo -----
+       Auto auto;
+       auto = nuevoAuto();
+        //------------------------------
+        
+        // ----- circuitos -----
+        CircuitoDePrueba circuito ;
+        
+        System.out.println("-ingrese los datos del circuito de prueba:");
+        circuito = nuevoCircuito();
+
+        //-------------------------------
+        
+        // ----- fecha -----
+        System.out.println("- ingresar fecha de examen:");
+        LocalDate fecha;
+        int anio;
+        int mes;
+        int dia;
+        
+        System.out.print("    -año:");
+        anio = entrada.nextInt();
+        System.out.print("    -mes:");
+        mes = entrada.nextInt();
+        System.out.print("    -dia:");
+        dia = entrada.nextInt();
+        fecha = LocalDate.of(anio,mes,dia);
+        
+        // ------------------------------
+        
+        examenAuto = new ExamenAuto( fecha, per,  circuito,  auto);
+        
+        return examenAuto;
+    }
+        
+        
 }
+
