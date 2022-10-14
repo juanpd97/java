@@ -5,9 +5,9 @@ package liconex_g21;
 public abstract class Vehiculo {
     
     //------ atributos -----
-    private String patente;
-    private String marca;
-    private int cilindrada;
+    protected String patente;
+    protected String marca;
+    protected int cilindrada;
     
     // ------ getters y setters-----}
 

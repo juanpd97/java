@@ -2,13 +2,13 @@ package liconex_g21;
 
 import java.time.LocalDate;
 
-public class Examen {
+public abstract class Examen {
     
     // ----- atributos -----
-    private LocalDate fecha;
-    private Persona p;
-    private CircuitoDePrueba c;
-    private Vehiculo v;
+    protected LocalDate fecha;
+    protected Persona p;
+    protected CircuitoDePrueba c;
+    protected Vehiculo v;
     
     // ----- getters y setters -----
 
@@ -55,8 +55,14 @@ public class Examen {
         
     // ----- metodos -----
 
+    @Override
+    public String toString() {
+        return "Examen{" + "fecha=" + fecha + ", p=" + p + ", c=" + c + ", v=" + v + '}';
+    }
+        
 
 
+        
 
     
 }

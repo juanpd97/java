@@ -11,34 +11,50 @@ public class LICONEX_G21 {
     public static void main(String[] args) {
         Scanner entrada = new Scanner(System.in);
        
-       //-----menu-----
+        //inicializo un arreglo del objeto examen para poder almacenar los examenes de auto/moto
+        Examen examenes[] = new Examen[100];
+        
+        int contador = 0; //utilizo esta variable para saber en que posicion guarde mi ultimo examen y no sobreescribirlo
+        
+       //----------menu----------
        int opcion;
+       boolean bucle = true;
+       
+       while(bucle){
        menuPrincipal();
-       
        opcion = entrada.nextInt();
-       switch(opcion){
-        case 1:
-            examenMoto();
-            break;
-        case 2:
-            examenAuto();
-            break;
-        case 3:
-            menuConsultas();
-            break;
-        case 9:
-            break;
-        default:
-            System.out.println("error");
-            
-            
-            
-            //prueba
-            Examen ex;
-            //-----------------------------
-    }
        
+       switch(opcion){
+        case 1: //inicializao un examen de moto y lo guardo en la posicion (contador) del arreglo de examenes
+        examenes[contador] = examenMoto();
+        contador++;
+            break;
+            
+        case 2: //inicializao un examen de auto y lo guardo en la posicion (contador) del arreglo de examenes
+        examenes[contador] = examenAuto();
+        contador++;
+            break;
+            
+        case 3: //abro el menu de consultas
+            opcion = entrada.nextInt();
+            menuConsultas(opcion);
+            break;
+            
+        case 9: //cierro el bucle while y termino el programa
+            System.out.println("¿desea salir? (s/n)");
+            String variable_salida;
+            variable_salida = entrada.next();
+            if(variable_salida.equals("s")){
+            bucle = false;}
+            break;
+            
+        default:
+            System.out.println("opcion invalida");
+       }}
+        // ---------------------------
+    
     }
+    
     public static void menuPrincipal(){
         System.out.println("        LICENCIAS DE CONDUCIR");
         System.out.println("        Menu Principal");
@@ -51,7 +67,7 @@ public class LICONEX_G21 {
 
     }
     
-    public static void menuConsultas(){
+    public static void menuConsultas(int opcion){
         System.out.println("        LICENCIAS DE CONDUCIR");
         System.out.println("        Menu Principal");
         System.out.println("    ===============================");
