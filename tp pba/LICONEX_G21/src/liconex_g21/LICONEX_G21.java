@@ -133,7 +133,7 @@ public class LICONEX_G21 {
         System.out.print("  -Cilindrada: ");
         cilindrada = entrada.nextInt();
         
-        System.out.print(" -Posee todos los espejos? (s/n): ");
+        System.out.print(" -Posee todos los espejos? (si/no): ");
         esp = entrada.next();
         while( !(esp.equals("si")) && !(esp.equals("no")) ){
         System.out.print(" -Posee todos los espejos? (si/no): ");
@@ -315,17 +315,61 @@ public class LICONEX_G21 {
                 case 1: //Examen por DNI
                     examenporDNI(examenes,contador);
                     break;
-                case 2:
+                case 2: //Examen de moto por FECHA
+                    ExamenMotoPorFECHA(examenes,contador);
                     break;
-                case 3:
+                case 3: //Examen de auto por FECHA
+                    ExamenAutoPorFECHA(examenes,contador);
                     break;
-                case 4:
+                case 4: 
                     System.out.println("F");
                     break;
                 case 9:
                     bucle_menu_consulta = false;
                     break;
             }
+        }
+    }
+     
+    public static void ExamenMotoPorFECHA(Examen examenes[],int contador){
+        Scanner entrada = new Scanner(System.in);
+        
+        boolean hayExamenes = true;
+        int anio,mes,dia;
+        System.out.println("ingrese una fecha:");
+        System.out.print("    - año:");
+        anio = entrada.nextInt();
+        System.out.print("    - mes:");
+        mes = entrada.nextInt();
+        System.out.print("    - dia:");
+        dia = entrada.nextInt();
+        
+        LocalDate fech = LocalDate.of(anio,mes,dia);
+        
+        
+        
+        for(int i = 0 ; i<contador ; i++){
+            if(examenes[i].getClass() == ExamenMoto.class){
+                if(examenes[i].getFecha().compareTo(fech) == 0){
+                    //-------
+                    String est;
+                    int faltasTotal;
+                    double tiempoTotal;
+                    tiempoTotal = examenes[i].getC().getTiempo() + examenes[i].getC2().getTiempo();
+                    faltasTotal = examenes[i].getC2().getNroDeFaltas() + examenes[i].getC().getNroDeFaltas();
+                    if( (faltasTotal<5) && ( (tiempoTotal/2)<1200) ){
+                    est = "EXAMEN APROBADO";
+                    } else{
+                            est="EXAMEN DESAPROBADO";
+                            }
+                    //--------
+                    System.out.println("-Dni: "+ examenes[i].getP().getDni() + "--- estado: " + est );
+                    hayExamenes = false;
+                }
+            }
+        }
+        if(hayExamenes){
+            System.out.println("no se registraron examen en el dia");
         }
     }
     
@@ -356,7 +400,15 @@ public class LICONEX_G21 {
         dni de la persona correspondiente y los datos del examen realizado tiempo y faltas del/los
         circuito/s y resultado (aprobado o no) del examen.
         */
+
+        
+        
+        int faltasTotal = 0;
+        double tiempoTotal = 0;
+        if( examenes[posicion].getClass() == ExamenAuto.class ){
+            
         System.out.println("--- datos de examen ---");
+        System.out.println("-vehiculo: auto");
         System.out.println("-Alumno");
         System.out.println("    -Nombre:" + examenes[posicion].getP().getNombre());
         System.out.println("    -Apellido:" + examenes[posicion].getP().getApellido());
@@ -365,9 +417,6 @@ public class LICONEX_G21 {
         System.out.println("-Datos");
         
         
-        int faltasTotal = 0;
-        double tiempoTotal = 0;
-        if( examenes[posicion].getClass() == ExamenAuto.class ){
         faltasTotal = examenes[posicion].getC().getNroDeFaltas();
         System.out.println("    -tiempo:" + examenes[posicion].getC().getTiempo());
         System.out.println("    -faltas: " + faltasTotal);
@@ -382,6 +431,17 @@ public class LICONEX_G21 {
         
         
         if( examenes[posicion].getClass() == ExamenMoto.class ){
+            
+        System.out.println("--- datos de examen ---");
+        System.out.println("-vehiculo: moto");
+        System.out.println("-Alumno");
+        System.out.println("    -Nombre:" + examenes[posicion].getP().getNombre());
+        System.out.println("    -Apellido:" + examenes[posicion].getP().getApellido());
+        System.out.println("    -Dni:" + examenes[posicion].getP().getDni());
+        System.out.println("");
+        System.out.println("-Datos");
+        
+            
             System.out.println("- Circuito 1 -");
             System.out.println("    -tiempo:" + examenes[posicion].getC().getTiempo());
             System.out.println("    -faltas circuito 1: " + examenes[posicion].getC().getNroDeFaltas());
@@ -400,6 +460,48 @@ public class LICONEX_G21 {
         }
         
         
+    }
+
+    public static void ExamenAutoPorFECHA(Examen examenes[],int contador){
+        Scanner entrada = new Scanner(System.in);
+        
+        boolean hayExamenes = true;
+        int anio,mes,dia;
+        System.out.println("ingrese una fecha:");
+        System.out.print("    - año:");
+        anio = entrada.nextInt();
+        System.out.print("    - mes:");
+        mes = entrada.nextInt();
+        System.out.print("    - dia:");
+        dia = entrada.nextInt();
+        
+        LocalDate fech = LocalDate.of(anio,mes,dia);
+        
+        
+        
+        for(int i = 0 ; i<contador ; i++){
+            if(examenes[i].getClass() == ExamenAuto.class){
+                if(examenes[i].getFecha().compareTo(fech) == 0){
+                    //-------
+                    String est;
+                    int faltasTotal;
+                    double tiempoTotal;
+                    tiempoTotal = examenes[i].getC().getTiempo();
+                    faltasTotal = examenes[i].getC().getNroDeFaltas();
+                    if( (faltasTotal<3) && ( tiempoTotal<1800) ){
+                    est = "EXAMEN APROBADO";
+                    } else{
+                            est="EXAMEN DESAPROBADO";
+                            }
+                    //--------
+                    System.out.println("-Dni: "+ examenes[i].getP().getDni() + "--- estado: " + est );
+                    hayExamenes = false;
+                }
+            }
+        }
+        if(hayExamenes){
+            System.out.println("no se registraron examen en el dia");
+        }
     }
 }
 
