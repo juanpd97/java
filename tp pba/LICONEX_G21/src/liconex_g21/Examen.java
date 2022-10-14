@@ -65,4 +65,9 @@ public abstract class Examen {
         
 
     
+    
+        protected CircuitoDePrueba c2;
+        public CircuitoDePrueba getC2() {
+        return c2;
+        }
 }

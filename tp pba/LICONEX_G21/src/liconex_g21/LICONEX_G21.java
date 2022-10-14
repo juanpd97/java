@@ -21,7 +21,7 @@ public class LICONEX_G21 {
        boolean bucle = true;
        
        while(bucle){
-       menuPrincipal();
+       imprimirMenuPrincipal();
        opcion = entrada.nextInt();
        
        switch(opcion){
@@ -36,8 +36,7 @@ public class LICONEX_G21 {
             break;
             
         case 3: //abro el menu de consultas
-            opcion = entrada.nextInt();
-            menuConsultas(opcion);
+            menuConsultas(examenes,contador);
             break;
             
         case 9: //cierro el bucle while y termino el programa
@@ -55,7 +54,7 @@ public class LICONEX_G21 {
     
     }
     
-    public static void menuPrincipal(){
+    public static void imprimirMenuPrincipal(){
         System.out.println("        LICENCIAS DE CONDUCIR");
         System.out.println("        Menu Principal");
         System.out.println("    ===============================");
@@ -66,15 +65,15 @@ public class LICONEX_G21 {
         System.out.print("        Ingrese una: ");
 
     }
-    
-    public static void menuConsultas(int opcion){
+   
+    public static void imprimirMenuConsulta(){
         System.out.println("        LICENCIAS DE CONDUCIR");
         System.out.println("        Menu Principal");
         System.out.println("    ===============================");
         System.out.println("        1.- Examen por DNI");
         System.out.println("        2.- Exámenes de moto por FECHA");
         System.out.println("        3.- Exámenes de auto por FECHA");
-        System.out.println("        4.- <Co 4.- <Consulta Opcional>");
+        System.out.println("        4.- <Consulta Opcional>");
         System.out.println("        9.- Volver al menú anterior");
         System.out.print("        Ingrese una: ");
     }
@@ -137,7 +136,7 @@ public class LICONEX_G21 {
         System.out.print(" -Posee todos los espejos? (s/n): ");
         esp = entrada.next();
         while( !(esp.equals("si")) && !(esp.equals("no")) ){
-        System.out.print(" -Posee todos los espejos? (s/n): ");
+        System.out.print(" -Posee todos los espejos? (si/no): ");
         esp = entrada.next();
         }
         if(esp.equals("si")){
@@ -302,6 +301,105 @@ public class LICONEX_G21 {
         return examenAuto;
     }
         
+    public static void menuConsultas(Examen examenes[],int contador){
+
         
+        Scanner entrada = new Scanner(System.in);
+        boolean bucle_menu_consulta = true;
+        int op;
+        
+        while(bucle_menu_consulta){
+            imprimirMenuConsulta();
+            op = entrada.nextInt();
+            switch(op){
+                case 1: //Examen por DNI
+                    examenporDNI(examenes,contador);
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    System.out.println("F");
+                    break;
+                case 9:
+                    bucle_menu_consulta = false;
+                    break;
+            }
+        }
+    }
+    
+    public static void examenporDNI(Examen examenes[],int contador){
+        Scanner entrada = new Scanner(System.in);
+        
+        int dniBuscar;// dni que tengo que buscar
+        boolean rindioExamen = true;
+        System.out.println("Ingrese el dni de la persona que desea buscar:");
+        dniBuscar = entrada.nextInt();
+        
+        
+        for(int i=0 ; i < contador ; i++){
+            if(dniBuscar == examenes[i].getP().getDni()){
+                rindioExamen = false;
+                imprimirDatos(examenes,i);
+            }
+        }
+        if(rindioExamen){
+            System.out.println("Ninguna persona con el DNI ingresado ha rendido examen alguno en Villa Pehuenia");
+        }
+        
+    }
+
+    public static void imprimirDatos(Examen examenes[],int posicion){
+        /*
+        esta funcion visualizará por pantalla apellido, nombres y
+        dni de la persona correspondiente y los datos del examen realizado tiempo y faltas del/los
+        circuito/s y resultado (aprobado o no) del examen.
+        */
+        System.out.println("--- datos de examen ---");
+        System.out.println("-Alumno");
+        System.out.println("    -Nombre:" + examenes[posicion].getP().getNombre());
+        System.out.println("    -Apellido:" + examenes[posicion].getP().getApellido());
+        System.out.println("    -Dni:" + examenes[posicion].getP().getDni());
+        System.out.println("");
+        System.out.println("-Datos");
+        
+        
+        int faltasTotal = 0;
+        double tiempoTotal = 0;
+        if( examenes[posicion].getClass() == ExamenAuto.class ){
+        faltasTotal = examenes[posicion].getC().getNroDeFaltas();
+        System.out.println("    -tiempo:" + examenes[posicion].getC().getTiempo());
+        System.out.println("    -faltas: " + faltasTotal);
+                
+        if( (faltasTotal<3) && ( tiempoTotal<1800) ){
+                System.out.println("EXAMEN APROBADO");
+            } else{
+                System.out.println("EXAMEN DESAPROBADO");
+                    }
+        }
+        
+        
+        
+        if( examenes[posicion].getClass() == ExamenMoto.class ){
+            System.out.println("- Circuito 1 -");
+            System.out.println("    -tiempo:" + examenes[posicion].getC().getTiempo());
+            System.out.println("    -faltas circuito 1: " + examenes[posicion].getC().getNroDeFaltas());
+            System.out.println("- Circuito 2 -");
+            System.out.println("    -tiempo:" + examenes[posicion].getC2().getTiempo());
+            System.out.println("    -faltas circuito 2: " + examenes[posicion].getC2().getNroDeFaltas());
+            tiempoTotal = examenes[posicion].getC().getTiempo() + examenes[posicion].getC2().getTiempo();
+            faltasTotal = examenes[posicion].getC2().getNroDeFaltas() + examenes[posicion].getC().getNroDeFaltas();
+            System.out.println("-faltas totales:" + faltasTotal);
+            
+            if( (faltasTotal<5) && ( (tiempoTotal/2)<1200) ){
+                System.out.println("EXAMEN APROBADO");
+            } else{
+                System.out.println("EXAMEN DESAPROBADO");
+                    }
+        }
+        
+        
+    }
 }
 

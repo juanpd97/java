@@ -28,5 +28,50 @@ public class ExamenMoto extends Examen {
         return "ExamenMoto{" + "c2=" + c2 + '}';
     }
     
+    // -----getters y setters -----
+    
+        public CircuitoDePrueba getC2() {
+        return c2;
+    }
+
+    public void setC2(CircuitoDePrueba c2) {
+        this.c2 = c2;
+    }
+
+    public LocalDate getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDate fecha) {
+        this.fecha = fecha;
+    }
+
+    public Persona getP() {
+        return p;
+    }
+
+    public void setP(Persona p) {
+        this.p = p;
+    }
+
+    public CircuitoDePrueba getC() {
+        return c;
+    }
+
+    public void setC(CircuitoDePrueba c) {
+        this.c = c;
+    }
+
+    public Vehiculo getV() {
+        return v;
+    }
+
+    public void setV(Vehiculo v) {
+        this.v = v;
+    }
+    
+    // ----------------------------
+
+
     
 }
