@@ -49,6 +49,8 @@ public class LICONEX_G21 {
             
         default:
             System.out.println("opcion invalida");
+            
+
        }}
         // ---------------------------
     
@@ -96,6 +98,7 @@ public class LICONEX_G21 {
         dni = entrada.nextInt();
         System.out.print("- Nombre:");
         nombre = entrada.next();
+        entrada.nextLine();
         System.out.print("- Apellido:");
         apellido = entrada.next();
         
@@ -128,6 +131,7 @@ public class LICONEX_G21 {
         System.out.println("ingresar datos de la moto:");
         System.out.print("  -Patente: ");
         patente = entrada.next();
+        entrada.nextLine();
         System.out.print("  -Marca: ");
         marca = entrada.next();
         System.out.print("  -Cilindrada: ");
@@ -322,7 +326,7 @@ public class LICONEX_G21 {
                     ExamenAutoPorFECHA(examenes,contador);
                     break;
                 case 4: 
-                    System.out.println("F");
+                    System.out.println("error");
                     break;
                 case 9:
                     bucle_menu_consulta = false;

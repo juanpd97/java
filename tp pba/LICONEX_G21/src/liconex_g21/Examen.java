@@ -27,7 +27,11 @@ public abstract class Examen {
     public void setC(CircuitoDePrueba c) {
         this.c = c;
     }
-
+    
+    protected CircuitoDePrueba c2;
+        public CircuitoDePrueba getC2() {
+        return c2;
+        }
     public Vehiculo getV() {
         return v;
     }
@@ -61,13 +65,4 @@ public abstract class Examen {
     }
         
 
-
-        
-
-    
-    
-        protected CircuitoDePrueba c2;
-        public CircuitoDePrueba getC2() {
-        return c2;
-        }
 }
