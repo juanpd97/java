@@ -37,7 +37,7 @@ public class Cancion {
     @Override
     public String toString() {
         return  "-Nombre: " + nombre + '\n' 
-               +"-Duracion: " + duracion;
+               +"-Duracion: " + duracion + '\n';
     }
     
     

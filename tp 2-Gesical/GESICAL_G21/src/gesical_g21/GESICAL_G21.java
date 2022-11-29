@@ -43,7 +43,7 @@ public class GESICAL_G21 {
                     registroMasivo(lista_solistas,lista_bandas,lista_canciones,lista_discos);
                     break;
                 case 6:
-                    //consulta();
+                    consultas(lista_solistas,lista_bandas,lista_canciones,lista_discos);
                     break;
                 //prueba de funciones--------------------------- se puede borrar
                 case 0:
@@ -119,6 +119,43 @@ public class GESICAL_G21 {
         System.out.println("            Ingrese una opción: */");
     }
     
+    public static void consultas(List lista_solistas,List lista_bandas,List lista_canciones,List lista_discos){
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("  GESICAL - Sistema de GEStión MusICAL");
+        System.out.println("        ==========================================");
+        System.out.println("            a) Discos que duran más de X segundos");
+        System.out.println("            b) Playlist por género musical");
+        System.out.println("            c) Borrar discos según año de edición");
+        System.out.println("            d) Listar discos por banda");
+        System.out.println("            z) Volver al menú anterior");
+        System.out.println("            Ingrese una opción: ");
+        
+        String opcion;
+        boolean menu = true;
+        
+        while(menu){
+            
+            opcion = entrada.next();
+            switch(opcion){
+                case "a":
+                    discoDuracionMayorX(lista_discos);
+                    break;
+                case "b":
+                    break;
+                case "c":
+                    break;
+                case "d":
+                    break;
+                case "z":
+                    menu = false;
+                    break;
+                default:
+                    System.out.println("Opcion invalida");
+                    break;
+            }
+        }
+        
+    }
     public static Solista registrarSolista(){
         Scanner entrada = new Scanner(System.in);
         
@@ -706,6 +743,70 @@ public class GESICAL_G21 {
         lista_canciones.add(nuevaCancion);
         
         //--------------- Discos -------------------
+        
+        Disco nuevoDisco;
+        Banda bduenio;
+        Solista sduenio;
+        List listaCanciones = new ArrayList();
+        // disco 1
+        
+        bduenio = (Banda)lista_bandas.get(0);
+        anio = 1985;
+        titulo = "primer disco";
+        
+        
+        listaCanciones.add(lista_canciones.get(0));
+        listaCanciones.add(lista_canciones.get(1));
+        listaCanciones.add(lista_canciones.get(2));
+        listaCanciones.add(lista_canciones.get(3));
+        listaCanciones.add(lista_canciones.get(4));
+        
+        nuevoDisco = new Disco(anio,titulo,listaCanciones,bduenio);
+        lista_discos.add(nuevoDisco);
+        
+        
+        //disco 2
+        
+        bduenio = (Banda)lista_bandas.get(1);
+        anio = 1995;
+        titulo = "segundo disco";
+        
+        listaCanciones.clear();
+        listaCanciones.add(lista_canciones.get(5));
+        listaCanciones.add(lista_canciones.get(6));
+        
+        nuevoDisco = new Disco(anio,titulo,listaCanciones,bduenio);
+        lista_discos.add(nuevoDisco);
+        
+        //disco 3
+        
+        sduenio = (Solista)lista_solistas.get(7);
+        anio = 2000;
+        titulo = "tercer disco";
+        
+        listaCanciones.clear();
+        listaCanciones.add(lista_canciones.get(7));
+        listaCanciones.add(lista_canciones.get(8));
+        listaCanciones.add(lista_canciones.get(9));
+        
+        nuevoDisco = new Disco(anio,titulo,listaCanciones,bduenio);
+        lista_discos.add(nuevoDisco);
     }
+    
+    public static void discoDuracionMayorX(List lista_discos){
+        Scanner entrada = new Scanner(System.in);
+        /*
+        Al ingresar a esta subopción se le pide al usuario que ingrese un tiempo X en
+        segundos. Luego se debe mostrar por pantalla el nombre del disco y el músico
+        correspondientes a aquellos discos que duren más de X segundos.
+        */
+        int tiempo;
+        System.out.println("ingrese la duracion en segundos: ");
+        tiempo = entrada.nextInt();
+        
+        
+    }
+    
+    
     
 }

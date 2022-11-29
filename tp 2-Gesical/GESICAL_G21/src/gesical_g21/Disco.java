@@ -43,9 +43,9 @@ public class Disco {
                     "-Canciones: " + canciones + '\n' ;
                 
         if(this.duenioBanda == null){
-            rta += "-Duenio: " + '\n' + duenioSolista ;
+            rta += "-Duenio: " +  duenioSolista ;
         } else if(this.duenioSolista == null){
-            rta += "-Duenio: " + '\n' +duenioBanda + '\n' ;
+            rta += "-Duenio: " + duenioBanda + '\n' ;
         }
         
         return rta;
