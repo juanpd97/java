@@ -1,12 +1,8 @@
 package gesical_g21;
 
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 public class GESICAL_G21 {
 
@@ -141,6 +137,7 @@ public class GESICAL_G21 {
                     discoDuracionMayorX(lista_discos);
                     break;
                 case "b":
+                    PlaylistPorGenero(lista_discos);
                     break;
                 case "c":
                     break;
@@ -156,6 +153,7 @@ public class GESICAL_G21 {
         }
         
     }
+    
     public static Solista registrarSolista(){
         Scanner entrada = new Scanner(System.in);
         
@@ -789,24 +787,101 @@ public class GESICAL_G21 {
         listaCanciones.add(lista_canciones.get(8));
         listaCanciones.add(lista_canciones.get(9));
         
-        nuevoDisco = new Disco(anio,titulo,listaCanciones,bduenio);
+        nuevoDisco = new Disco(anio,titulo,listaCanciones,sduenio);
         lista_discos.add(nuevoDisco);
     }
     
     public static void discoDuracionMayorX(List lista_discos){
+        
         Scanner entrada = new Scanner(System.in);
         /*
         Al ingresar a esta subopción se le pide al usuario que ingrese un tiempo X en
         segundos. Luego se debe mostrar por pantalla el nombre del disco y el músico
         correspondientes a aquellos discos que duren más de X segundos.
         */
-        int tiempo;
+        int tiempo,aux;
         System.out.println("ingrese la duracion en segundos: ");
         tiempo = entrada.nextInt();
+        boolean existe = true; // para saber si exiten disco con mayor duracion a x segundos
         
+        for(int i=0;i<lista_discos.size();i++){
+            aux = ((Disco)lista_discos.get(i)).duracionTotal();
+            if(tiempo < aux ){
+                System.out.print("Disco: ");
+                System.out.println(((Disco)lista_discos.get(i)).getTitulo());
+                System.out.println(((Disco)lista_discos.get(i)).getMusico());
+                existe = false;
+            }
+        }
+        
+        if(existe){
+            System.out.println("no existen discos con duracion mayo a " + tiempo + " segundos");
+        }
         
     }
     
-    
+    public static void PlaylistPorGenero(List lista_discos){
+        Scanner entrada = new Scanner(System.in);
+        /*
+        Al ingresar a esta subopción se le pide al usuario que ingrese o elija un género musical
+        y se muestre una playlist con las canciones de los distintos discos que son de dicho
+        género. Se debe mostrar por pantalla el nombre de la canción, el disco al que
+        pertenece y el músico al que pertenece el disco.
+        */
+        String tipoDeGenero;
+        List playlist = new ArrayList();
+        int aux;
+        boolean existe = true;
+        
+        System.out.print("-ingrese un genero:");
+        tipoDeGenero = entrada.next();
+        
+        /*
+        for(int i=0; i<lista_discos.size() ;i++){
+            
+            aux = ((Disco)lista_discos.get(i)).getTamanioListaCanciones();
+           
+            for(int j=0 ; j<aux ; j++){
+                if(((Disco)lista_discos.get(i)).getGenero(j).equals(tipoDeGenero)){
+                   
+                    playlist.add(((Disco)lista_discos.get(i)).getCanciones(j)); 
+                    existe = false;
+                   
+                    System.out.print("la cancion: ");
+                    System.out.println( ((Disco)lista_discos.get(i)).getNombreCancion(j));
+                    System.out.print("pertenece a: ");
+                    System.out.println(((Disco)lista_discos.get(i)).getMusico());
+                }
+            }
+        }
+        */
+        
+        for(int i=0 ; i<lista_discos.size() ; i++){
+            
+            if( ((Disco)lista_discos.get(i)).getGenero().equals(tipoDeGenero) ){
+                
+                existe = false;
+                aux = ((Disco)lista_discos.get(i)).getTamanioListaCanciones();
+                
+                System.out.print("-Disco: ");
+                System.out.println(((Disco)lista_discos.get(i)).getTitulo());
+                System.out.print("-Autor: ");
+                System.out.println(((Disco)lista_discos.get(i)).getMusico());
+                
+                System.out.println("Canciones:");
+                for(int j=0 ; j<aux ; j++){
+                    System.out.println( (j+1)+" "+((Disco)lista_discos.get(i)).getNombreCancion(j));
+                }
+                System.out.println("");
+            }
+            
+        }
+        
+        if(existe){
+            System.out.println("no existen canciones del genero "+ tipoDeGenero);
+        }
+    }
+
+
     
 }

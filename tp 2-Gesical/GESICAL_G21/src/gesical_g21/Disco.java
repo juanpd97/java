@@ -96,8 +96,55 @@ public class Disco {
     
 
     
+    //otros metodos
+    public int duracionTotal(){
+        int total=0;
+        
+        for(int i=0 ;i<canciones.size();i++){
+            total += (canciones.get(i)).getDuracion();
+        }
+        
+        return total;
+    }
+    
+    public String getMusico(){
+        
+        String rta="";
+        
+        if(this.duenioBanda == null){
+            rta = duenioSolista.getNombre() + " " +duenioSolista.getApellido() ;
+        } else if(this.duenioSolista == null){
+            rta = duenioBanda.getTitulo();
+        }
+        
+        return rta;
+    }
     
     
+    public String getGenero(){
+        
+        String rta="";
+        
+        if(this.duenioBanda == null){
+            rta = duenioSolista.getGenero();
+        } else if(this.duenioSolista == null){
+            rta = duenioBanda.getGenero();
+        }
+        
+        return rta;
+    }
+    
+    public int getTamanioListaCanciones(){
+        return canciones.size();
+    }
+    
+    public Cancion getCanciones(int i){
+        return canciones.get(i);
+    }
+    
+    public String getNombreCancion(int i){
+        return canciones.get(i).getNombre();
+    }
     
     
 }
