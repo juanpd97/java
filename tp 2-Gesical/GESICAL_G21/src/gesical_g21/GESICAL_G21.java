@@ -117,6 +117,11 @@ public class GESICAL_G21 {
     
     public static void consultas(List lista_solistas,List lista_bandas,List lista_canciones,List lista_discos){
         Scanner entrada = new Scanner(System.in);
+        
+        String opcion;
+        boolean menu = true;
+        
+        while(menu){
         System.out.println("  GESICAL - Sistema de GEStión MusICAL");
         System.out.println("        ==========================================");
         System.out.println("            a) Discos que duran más de X segundos");
@@ -125,13 +130,9 @@ public class GESICAL_G21 {
         System.out.println("            d) Listar discos por banda");
         System.out.println("            z) Volver al menú anterior");
         System.out.println("            Ingrese una opción: ");
-        
-        String opcion;
-        boolean menu = true;
-        
-        while(menu){
             
             opcion = entrada.next();
+            
             switch(opcion){
                 case "a":
                     discoDuracionMayorX(lista_discos);
@@ -140,8 +141,10 @@ public class GESICAL_G21 {
                     PlaylistPorGenero(lista_discos);
                     break;
                 case "c":
+                    borrarDiscoXanio (lista_discos);
                     break;
                 case "d":
+                    listarDiscoPorBanda(lista_discos);
                     break;
                 case "z":
                     menu = false;
@@ -882,6 +885,34 @@ public class GESICAL_G21 {
         }
     }
 
+    public static void borrarDiscoXanio (List lista_discos){
+        Scanner entrada = new Scanner(System.in);
+        /*
+        Al ingresar a esta subopción se le pide al usuario que ingrese un año y luego se
+        deberán borrar de la colección de discos aquellos editados antes del año especificado.
+        */
+        
+        int anio;
+        
+        System.out.print("ingrese un anio: ");
+        anio = entrada.nextInt();
+        
+        for(int i=0; i<lista_discos.size();i++){
+            if( ((Disco)lista_discos.get(i)).getAnioEdicion() < anio ){
+                lista_discos.remove(i);
+                i--;
+            }
+        }
+    }
 
-    
+    public static void listarDiscoPorBanda(List lista_discos){
+        /*
+        Al ingresar a esta subopción se le presentará al usuario el listado de bandas y solistas, y
+        deberá elegir un@ de ell@s. Luego se deben listar todos los discos en los que participa
+        ese solista/banda. Se debe mostrar por pantalla el nombre del disco y el año de
+        edición. Restricción: se debe utilizar for each / iterator()
+        */
+        
+        
+    }
 }
