@@ -1,6 +1,7 @@
 package gesical_g21;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -132,7 +133,6 @@ public class GESICAL_G21 {
         System.out.println("            Ingrese una opción: ");
             
             opcion = entrada.next();
-            
             switch(opcion){
                 case "a":
                     discoDuracionMayorX(lista_discos);
@@ -144,7 +144,7 @@ public class GESICAL_G21 {
                     borrarDiscoXanio (lista_discos);
                     break;
                 case "d":
-                    listarDiscoPorBanda(lista_discos);
+                    listarDiscoPorBanda(lista_solistas,lista_bandas,lista_canciones,lista_discos);
                     break;
                 case "z":
                     menu = false;
@@ -792,6 +792,7 @@ public class GESICAL_G21 {
         
         nuevoDisco = new Disco(anio,titulo,listaCanciones,sduenio);
         lista_discos.add(nuevoDisco);
+        
     }
     
     public static void discoDuracionMayorX(List lista_discos){
@@ -839,26 +840,6 @@ public class GESICAL_G21 {
         System.out.print("-ingrese un genero:");
         tipoDeGenero = entrada.next();
         
-        /*
-        for(int i=0; i<lista_discos.size() ;i++){
-            
-            aux = ((Disco)lista_discos.get(i)).getTamanioListaCanciones();
-           
-            for(int j=0 ; j<aux ; j++){
-                if(((Disco)lista_discos.get(i)).getGenero(j).equals(tipoDeGenero)){
-                   
-                    playlist.add(((Disco)lista_discos.get(i)).getCanciones(j)); 
-                    existe = false;
-                   
-                    System.out.print("la cancion: ");
-                    System.out.println( ((Disco)lista_discos.get(i)).getNombreCancion(j));
-                    System.out.print("pertenece a: ");
-                    System.out.println(((Disco)lista_discos.get(i)).getMusico());
-                }
-            }
-        }
-        */
-        
         for(int i=0 ; i<lista_discos.size() ; i++){
             
             if( ((Disco)lista_discos.get(i)).getGenero().equals(tipoDeGenero) ){
@@ -885,7 +866,7 @@ public class GESICAL_G21 {
         }
     }
 
-    public static void borrarDiscoXanio (List lista_discos){
+    public static void borrarDiscoXanio(List lista_discos){
         Scanner entrada = new Scanner(System.in);
         /*
         Al ingresar a esta subopción se le pide al usuario que ingrese un año y luego se
@@ -905,14 +886,93 @@ public class GESICAL_G21 {
         }
     }
 
-    public static void listarDiscoPorBanda(List lista_discos){
+    public static void listarDiscoPorBanda(List lista_solistas,List lista_bandas,List lista_canciones,List lista_discos){
+        
+        Scanner entrada = new Scanner(System.in);
         /*
         Al ingresar a esta subopción se le presentará al usuario el listado de bandas y solistas, y
         deberá elegir un@ de ell@s. Luego se deben listar todos los discos en los que participa
         ese solista/banda. Se debe mostrar por pantalla el nombre del disco y el año de
         edición. Restricción: se debe utilizar for each / iterator()
         */
+        //primero muestro una lista
+        String opcion;
+        boolean opcionValida = true,existe = true;
         
+        System.out.print("¿desea ver la lista de bandas o solistas? (banda/solista): ");
+        while(opcionValida){
+            
+            opcion = entrada.next();
+            
+            switch(opcion){
+                case "banda":
+            mostrarBanda(lista_bandas);
+                    
+            //selecciono una opcion
+            int opcion2;
+            
+            System.out.print("seleccione uno:");
+            opcion2 = entrada.nextInt();
+            opcion2--;
+            
+                Banda unaBanda;
+                unaBanda = (Banda)lista_bandas.get((opcion2));    
+
+                Iterator it = lista_discos.iterator();
+                 
+                while(it.hasNext()){
+                    Disco d = (Disco) it.next();
+                    
+                    if(d.getDuenioBanda()!= null && d.getDuenioBanda().equals(unaBanda)){
+                        System.out.print("titulo del disco:");
+                        System.out.println(d.getTitulo());
+                        System.out.print("anio:");
+                        System.out.println(d.getAnioEdicion());
+                        existe = false;
+                    }
+                }
+                opcionValida = false;
+                    break;
+                    
+                case "solista":
+                    mostrarMusicos(lista_solistas);
+                    
+                    //selecciono una opcion
+                    int opcion3;
+            
+                    System.out.print("seleccione uno:");
+                    opcion3 = entrada.nextInt();
+                    opcion3--;
+            
+                    Solista unSolista;
+                    unSolista = (Solista)lista_solistas.get((opcion3));    
+
+                    Iterator it2 = lista_discos.iterator();
+                 
+                    while(it2.hasNext()){
+                    Disco d = (Disco) it2.next();
+                    
+                    if(d.getDuenioSolista() != null && d.getDuenioSolista().equals(unSolista)){
+                        System.out.print("titulo del disco:");
+                        System.out.println(d.getTitulo());
+                        System.out.print("anio:");
+                        System.out.println(d.getAnioEdicion());
+                        existe = false;
+                    }
+                }
+                    opcionValida = false;
+                    break;
+                    
+                default:
+                    System.out.println("opcion ivalida");
+                    break;
+            }
+            
+            if(existe){
+                System.out.println("la opcion elegida no esta vinculada a ningun disco.");
+            }
+            
+        }
         
     }
 }
