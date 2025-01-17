@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import dom.jp.peliculas.dao.IGeneroRepository;
+//import dom.jp.peliculas.dao.IGeneroRepository;
 import dom.jp.peliculas.entities.Genero;
 import dom.jp.peliculas.services.IGeneroService;
 
