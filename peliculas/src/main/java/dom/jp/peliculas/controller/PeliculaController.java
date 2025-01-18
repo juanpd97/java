@@ -50,7 +50,6 @@ public class PeliculaController {
 	
 	@GetMapping({"/", "index"})
 	public String index() {
-		
 		return "index";
 	}
 }
