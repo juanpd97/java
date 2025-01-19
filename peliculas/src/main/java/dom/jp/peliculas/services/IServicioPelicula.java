@@ -2,6 +2,7 @@ package dom.jp.peliculas.services;
 
 import java.util.List;
 
+import dom.jp.peliculas.entities.Actor;
 import dom.jp.peliculas.entities.Pelicula;
 
 
@@ -11,5 +12,6 @@ public interface IServicioPelicula {
 	public Pelicula findById(Long id);
 	public List<Pelicula> findAll();
 	public void delete(Long Id);
-	
+	public List<Actor> findAllActores(Long id);
+
 }

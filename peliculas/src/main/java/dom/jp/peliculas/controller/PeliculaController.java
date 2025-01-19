@@ -79,7 +79,10 @@ public class PeliculaController {
     }
 
     @GetMapping({ "/", "index" })
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("msj","catalogo actualizado");
+        model.addAttribute("tipoMsj","success");
+        model.addAttribute("peliculas", peliculaService.findAll());
         return "index";
     }
 }
